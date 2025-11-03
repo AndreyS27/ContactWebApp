@@ -7,9 +7,9 @@ namespace Api.Controller
 {
     public class ContactManagementController : BaseController
     {
-        private readonly ContactStorage storage;
+        private readonly IStorage storage;
 
-        public ContactManagementController(ContactStorage storage)
+        public ContactManagementController(IStorage storage)
         {
             this.storage = storage;
         }
