@@ -6,47 +6,47 @@ namespace Api.Storage
 {
     public class ApplicationEfStorage : IStorage
     {
-        private readonly ApplicationDbContext context;
+        private readonly ApplicationDbContext _context;
 
         public ApplicationEfStorage(ApplicationDbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         public Contact Add(Contact contact)
         {
-            context.Contacts.Add(contact);
-            context.SaveChanges();
+            _context.Contacts.Add(contact);
+            _context.SaveChanges();
             return contact;
         }
 
         public List<Contact> GetContacts()
         {
-            return context.Contacts.ToList();
+            return _context.Contacts.ToList();
         }
 
         public bool Remove(int id)
         {
-            var contact = context.Contacts.Find(id);
+            var contact = _context.Contacts.Find(id);
             if (contact == null)
             {
                 return false;
             }
-            context.Contacts.Remove(contact);
-            context.SaveChanges();
+            _context.Contacts.Remove(contact);
+            _context.SaveChanges();
             return true;
         }
 
         public bool UpdateContact(ContactDto contactDto, int id)
         {
-            var contact = context.Contacts.Find(id);
+            var contact = _context.Contacts.Find(id);
             if (contact == null)
             {
                 return false;
             }
             contact.Name = contactDto.Name;
             contact.Email = contactDto.Email;
-            context.SaveChanges();
+            _context.SaveChanges();
             return true;
         }
     }
