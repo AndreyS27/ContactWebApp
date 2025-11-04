@@ -1,20 +1,8 @@
-using Api.Storage;
+using Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
-builder.Services.AddSingleton<IStorage,InMemoryStorage>();
-
-builder.Services.AddCors(opt =>
-opt.AddPolicy("CorsPolicy", policy =>
-    {
-        policy.AllowAnyMethod()
-        .AllowAnyHeader()
-        .WithOrigins(args[0]);
-    })
-);
+builder.Services.AddServiceCollection(builder.Configuration);
 
 var app = builder.Build();
 
