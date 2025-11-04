@@ -10,7 +10,7 @@ namespace Api.Storage
 
         public ApplicationEfStorage(ApplicationDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public Contact Add(Contact contact)

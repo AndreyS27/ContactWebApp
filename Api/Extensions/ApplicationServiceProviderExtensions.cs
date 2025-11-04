@@ -11,16 +11,8 @@ namespace Api.Extensions
         )
         {
             using var scope = services.CreateScope();
-
-            var storage = scope.ServiceProvider.GetService<IStorage>();
-            var dbStorage = storage as ApplicationEfStorage;
-            if (dbStorage != null)
-            {
-                string connectionString = configuration
-                    .GetConnectionString("DefaultConnection");
-
-                new FakerInitializer(connectionString).Initialize();
-            }
+            var initializer = scope.ServiceProvider.GetRequiredService<IInitializer>();
+            initializer.Initialize();
 
             return services;
         }

@@ -1,4 +1,7 @@
-﻿using Api.Storage;
+﻿using Api.DataContext;
+using Api.Seed;
+using Api.Storage;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Extensions
 {
@@ -11,8 +14,11 @@ namespace Api.Extensions
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddControllers();
+
             var stringConnection = configuration.GetConnectionString("DefaultConnection");
-            services.AddSingleton<IStorage>();
+            services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(stringConnection));
+            services.AddScoped<IStorage, ApplicationEfStorage>();
+            services.AddScoped<IInitializer, FakerInitializer>();
 
             services.AddCors(opt =>
             opt.AddPolicy("CorsPolicy", policy =>
@@ -20,8 +26,7 @@ namespace Api.Extensions
                 policy.AllowAnyMethod()
                 .AllowAnyHeader()
                 .WithOrigins(configuration["client"]);
-            })
-            );
+            }));
             return services;
         }
     }
