@@ -12,7 +12,8 @@ const App = () => {
   );
 
   const addContact = (contactName, contactEmail) => {
-    const newId = Math.max(...contacts.map(e=>e.id)) + 1;
+    const newId = contacts.length === 0 ? 1 : Math.max(
+      ...contacts.map(e=>e.id)) + 1;
 
     const item = {
       id: newId,
@@ -20,7 +21,10 @@ const App = () => {
       email: contactEmail
     };
     setContacts([...contacts, item]);
-    console.log(contacts);
+  }
+
+  const deleteContact = (id) => {
+    setContacts(contacts.filter(item => item.id !== id));
   }
 
   return (
@@ -31,7 +35,10 @@ const App = () => {
         </div>
 
         <div className="card-body">
-          <TableContact contacts={contacts} />
+          <TableContact 
+            contacts={contacts} 
+            deleteContact={deleteContact}
+          />
           <FormContact addContact={addContact}/>
           
         </div>
