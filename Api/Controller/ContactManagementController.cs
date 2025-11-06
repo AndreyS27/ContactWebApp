@@ -7,9 +7,9 @@ namespace Api.Controller
 {
     public class ContactManagementController : BaseController
     {
-        private readonly IStorage storage;
+        private readonly IPaginationStorage storage;
 
-        public ContactManagementController(IStorage storage)
+        public ContactManagementController(IPaginationStorage storage)
         {
             this.storage = storage;
         }
@@ -48,6 +48,17 @@ namespace Api.Controller
             bool res = storage.UpdateContact(contactDto, id);
             if (res) return Ok();
             return Conflict("Контакт с указанным ID не найден");
+        }
+
+        [HttpGet("contacts/{id}")]
+        public ActionResult<Contact> GetContact(int id)
+        {
+            var contact = storage.GetContactById(id);
+            if (contact != null)
+            {
+                return Ok(contact);
+            }
+            return NotFound();
         }
     }
 }

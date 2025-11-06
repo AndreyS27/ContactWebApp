@@ -6,7 +6,7 @@ namespace Api.Storage
 {
     public class ApplicationEfStorage : IStorage
     {
-        private readonly ApplicationDbContext _context;
+        protected readonly ApplicationDbContext _context;
 
         public ApplicationEfStorage(ApplicationDbContext context)
         {

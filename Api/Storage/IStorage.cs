@@ -1,5 +1,6 @@
 ﻿using Api.Model;
 using Api.ModelDto;
+using Api.Storage;
 
 namespace Api.Storage
 {

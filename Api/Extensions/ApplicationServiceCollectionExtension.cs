@@ -17,7 +17,7 @@ namespace Api.Extensions
 
             var stringConnection = configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(stringConnection));
-            services.AddScoped<IStorage, ApplicationEfStorage>();
+            services.AddScoped<IPaginationStorage, ApplicationPaginationEfStorage>();
             services.AddScoped<IInitializer, FakerInitializer>();
 
             services.AddCors(opt =>
