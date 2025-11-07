@@ -77,7 +77,7 @@ namespace Api.Seed
         public void Initialize()
         {
             _context.Database.Migrate();
-            if (_context.Contacts.Any())
+            if (!_context.Contacts.Any())
             {
                 var faker = new Faker<Contact>("ru")
                     .RuleFor(c => c.Name, f => f.Name.FullName())
