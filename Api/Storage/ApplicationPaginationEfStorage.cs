@@ -19,6 +19,7 @@ namespace Api.Storage
         {
             int total = base._context.Contacts.Count();
             List<Contact> contacts = base._context.Contacts
+                .OrderBy(x => x.Id)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
                 .ToList();
