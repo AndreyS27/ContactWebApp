@@ -36,8 +36,7 @@ const ContactDetails = (props) => {
         axios.put(url, contact).then(() => {
             props.onUpdate();
             navigate("/");
-        }
-        ).catch(
+        }).catch(
             console.log("Ошибка обновления")
         );
     }
