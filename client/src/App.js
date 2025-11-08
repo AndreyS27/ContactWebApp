@@ -25,24 +25,27 @@ const App = () => {
     axios.get(url).then(
       res => {
         setContacts(res.data.contacts)
-        setTotalPages(Math.ceil(res.data.totalCount/pageSize))
+        setTotalPages(Math.ceil(res.data.totalCount / pageSize))
       }
     );
   }, [currentPage, pageSize, location.pathname]);
 
   const addContact = (contactName, contactEmail) => {
-    const newId = contacts.length === 0 ? 1 : Math.max(
-      ...contacts.map(e => e.id)) + 1;
-
     const item = {
-      id: newId,
       name: contactName,
       email: contactEmail
     };
 
-    const url = `${baseApiUrl}/ContactManagement/contacts`;
+    let url = `${baseApiUrl}/ContactManagement/contacts`;
     axios.post(url, item);
-    setContacts([...contacts, item]);
+
+    url = `${baseApiUrl}/ContactManagement/contacts/page?pageNumber=${currentPage}&pageSize=${pageSize}`;
+    axios.get(url).then(
+      res => {
+        setContacts(res.data.contacts)
+        setTotalPages(Math.ceil(res.data.totalCount / pageSize))
+      }
+    );
   }
 
   return (
@@ -61,7 +64,7 @@ const App = () => {
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
-                onPageChange={ handlePageChange}
+                onPageChange={handlePageChange}
               />
               <FormContact addContact={addContact} />
             </div>
