@@ -4,7 +4,7 @@ import axios from "axios";
 
 const baseApiUrl = process.env.REACT_APP_API_URL;
 
-const ContactDetails = () => {
+const ContactDetails = (props) => {
     const [contact, setContact] = useState({ name: "", email: "" });
     const { id } = useParams();
     const navigate = useNavigate();
@@ -21,8 +21,10 @@ const ContactDetails = () => {
     const handleRemove = () => {
         const url = `${baseApiUrl}/ContactManagement/contacts/${id}`;
         if (window.confirm("Удалить контакт?")) {
-            axios.delete(url).then(
-                navigate("/")
+            axios.delete(url).then(() => {
+                props.onUpdate();
+                navigate("/");
+            }
             ).catch(
                 console.log("Ошибка удаления")
             );
@@ -31,8 +33,10 @@ const ContactDetails = () => {
 
     const handleUpdate = () => {
         const url = `${baseApiUrl}/ContactManagement/contacts/${id}`;
-        axios.put(url, contact).then(
-            navigate("/")
+        axios.put(url, contact).then(() => {
+            props.onUpdate();
+            navigate("/");
+        }
         ).catch(
             console.log("Ошибка обновления")
         );
@@ -47,7 +51,7 @@ const ContactDetails = () => {
                     className="form-control"
                     type="text"
                     value={contact.name}
-                    onChange={(e) => {setContact({...contact, name:e.target.value}) }}
+                    onChange={(e) => { setContact({ ...contact, name: e.target.value }) }}
                 />
             </div>
             <div className="mb-3">
@@ -56,7 +60,7 @@ const ContactDetails = () => {
                     className="form-control"
                     type="email"
                     value={contact.email}
-                    onChange={(e) => {setContact({...contact, email:e.target.value}) }}
+                    onChange={(e) => { setContact({ ...contact, email: e.target.value }) }}
                 />
             </div>
             <button
