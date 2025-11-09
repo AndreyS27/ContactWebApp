@@ -54,5 +54,4 @@
 
 ## Скриншот приложения
 
-![ContactWebApp Screenshot](https://via.placeholder.com/1200x800?text=ContactWebApp+Working+Screenshot)
 <img width="1905" height="800" alt="example" src="https://github.com/user-attachments/assets/60445161-7f76-4df7-9565-63179466e60a" />
