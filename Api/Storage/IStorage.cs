@@ -6,9 +6,9 @@ namespace Api.Storage
 {
     public interface IStorage
     {
-        List<Contact> GetContacts();
-        Contact Add(Contact contact);
-        bool Remove(int id);
-        bool UpdateContact(ContactDto contactDto, int id);
+        Task<List<Contact>> GetContactsAsync();
+        Task<Contact> AddAsync(Contact contact);
+        Task<bool> RemoveAsync(int id);
+        Task<bool> UpdateContactAsync(ContactDto contactDto, int id);
     }
 }

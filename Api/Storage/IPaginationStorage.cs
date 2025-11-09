@@ -4,7 +4,7 @@ namespace Api.Storage
 {
     public interface IPaginationStorage : IStorage
     {
-        Contact GetContactById(int id);
-        (List<Contact>, int TotalCount) GetContacts(int pageNumber, int pageSize);
+        Task<Contact> GetContactByIdAsync(int id);
+        Task<(List<Contact>, int TotalCount)> GetContactsAsync(int pageNumber, int pageSize);
     }
 }

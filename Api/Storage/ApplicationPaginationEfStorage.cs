@@ -1,5 +1,6 @@
 ﻿using Api.DataContext;
 using Api.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Storage
 {
@@ -10,19 +11,19 @@ namespace Api.Storage
         {   
         }
 
-        public Contact GetContactById(int id)
+        public async Task<Contact> GetContactByIdAsync(int id)
         {
-            return base._context.Contacts.Find(id);
+            return await base._context.Contacts.FindAsync(id);
         }
 
-        public (List<Contact>, int TotalCount) GetContacts(int pageNumber, int pageSize)
+        public async Task<(List<Contact>, int TotalCount)> GetContactsAsync(int pageNumber, int pageSize)
         {
             int total = base._context.Contacts.Count();
-            List<Contact> contacts = base._context.Contacts
+            List<Contact> contacts = await base._context.Contacts
                 .OrderBy(x => x.Id)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
-                .ToList();
+                .ToListAsync();
             return (contacts, total);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Api.DataContext;
 using Api.Model;
 using Api.ModelDto;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Storage
 {
@@ -13,40 +14,40 @@ namespace Api.Storage
             _context = context;
         }
 
-        public Contact Add(Contact contact)
+        public async Task<Contact> AddAsync(Contact contact)
         {
             _context.Contacts.Add(contact);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return contact;
         }
 
-        public List<Contact> GetContacts()
+        public async Task<List<Contact>> GetContactsAsync()
         {
-            return _context.Contacts.ToList();
+            return await _context.Contacts.ToListAsync();
         }
 
-        public bool Remove(int id)
+        public async Task<bool> RemoveAsync(int id)
         {
-            var contact = _context.Contacts.Find(id);
+            var contact = await _context.Contacts.FindAsync(id);
             if (contact == null)
             {
                 return false;
             }
             _context.Contacts.Remove(contact);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
 
-        public bool UpdateContact(ContactDto contactDto, int id)
+        public async Task<bool> UpdateContactAsync(ContactDto contactDto, int id)
         {
-            var contact = _context.Contacts.Find(id);
+            var contact = await _context.Contacts.FindAsync(id);
             if (contact == null)
             {
                 return false;
             }
             contact.Name = contactDto.Name;
             contact.Email = contactDto.Email;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return true;
         }
     }

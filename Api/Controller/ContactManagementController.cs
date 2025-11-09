@@ -15,26 +15,27 @@ namespace Api.Controller
         }
 
         [HttpPost("contacts")]
-        public IActionResult Create([FromBody] Contact contact) 
+        public async  Task<IActionResult> Create([FromBody] Contact contact) 
         {
-            Contact res = storage.Add(contact);
+            Contact res = await storage.AddAsync(contact);
             if (res != null)
             {
-                return Ok(contact);
+                return Ok(res);
             }
             return Conflict("Контакт с указанным ID существует");
         }
 
-        [HttpGet("contacts")]
-        public ActionResult<List<Contact>> GetContacts()
-        {
-            return Ok(storage.GetContacts());
-        }
+        //[HttpGet("contacts")]
+        //public async Task<ActionResult<List<Contact>>> GetContacts()
+        //{
+        //    var contacts = await storage.GetContactsAsync();
+        //    return Ok(contacts);
+        //}
 
         [HttpDelete("contacts/{id}")]
-        public IActionResult DeleteContact(int id)
+        public async Task<IActionResult> DeleteContact(int id)
         {
-            bool res = storage.Remove(id);
+            bool res = await storage.RemoveAsync(id);
             if (res)
             {
                 return NoContent();
@@ -43,17 +44,17 @@ namespace Api.Controller
         }
 
         [HttpPut("contacts/{id}")]
-        public IActionResult UpdateContact([FromBody] ContactDto contactDto, int id)
+        public async Task<IActionResult> UpdateContact([FromBody] ContactDto contactDto, int id)
         {
-            bool res = storage.UpdateContact(contactDto, id);
+            bool res = await storage.UpdateContactAsync(contactDto, id);
             if (res) return Ok();
             return Conflict("Контакт с указанным ID не найден");
         }
 
         [HttpGet("contacts/{id}")]
-        public ActionResult<Contact> GetContact(int id)
+        public async Task<ActionResult<Contact>> GetContact(int id)
         {
-            var contact = storage.GetContactById(id);
+            var contact = await storage.GetContactByIdAsync(id);
             if (contact != null)
             {
                 return Ok(contact);
@@ -62,9 +63,9 @@ namespace Api.Controller
         }
 
         [HttpGet("contacts/page")]
-        public IActionResult GetContacts(int pageNumber = 1, int pageSize = 5)
+        public async Task<IActionResult> GetContacts(int pageNumber = 1, int pageSize = 5)
         {
-            var (contacts, total) = storage.GetContacts(pageNumber, pageSize);
+            var (contacts, total) = await storage.GetContactsAsync(pageNumber, pageSize);
 
             var response = new
             {
