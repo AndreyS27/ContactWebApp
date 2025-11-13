@@ -3,7 +3,7 @@ using Api.ModelDto;
 using Api.Storage;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controller
+namespace Api.Controllers
 {
     public class ContactManagementController : BaseController
     {

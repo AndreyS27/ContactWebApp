@@ -13,6 +13,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseConfigMiddleware();
+app.UseDefaultFiles();
+app.UseStaticFiles();
+app.MapFallbackToController("Index", "Fallback");
+
 app.MapControllers();
 app.UseCors("CorsPolicy");
 app.Run();
