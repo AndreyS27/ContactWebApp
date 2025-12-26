@@ -50,4 +50,4 @@
 ## Скриншот приложения
 
 <img width="1905" height="800" alt="example" src="https://github.com/user-attachments/assets/60445161-7f76-4df7-9565-63179466e60a" />
-<img width="1920" height="1040" alt="image" src="https://github.com/user-attachments/assets/6c780aa0-edb9-43a0-b388-0712c0b55744" />
+<img width="1905" height="800" alt="image" src="https://github.com/user-attachments/assets/6c780aa0-edb9-43a0-b388-0712c0b55744" />
