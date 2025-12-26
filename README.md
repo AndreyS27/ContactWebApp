@@ -51,3 +51,30 @@
 
 <img width="1905" height="800" alt="example" src="https://github.com/user-attachments/assets/60445161-7f76-4df7-9565-63179466e60a" />
 <img width="1905" height="800" alt="image" src="https://github.com/user-attachments/assets/6c780aa0-edb9-43a0-b388-0712c0b55744" />
+
+
+## Запуск проекта с помощью Docker
+Проект состоит из двух сервисов:
+
+- API (ASP.NET Core 8.0 на порту 5000)
+- PostgreSQL 17 (с предзаполненными тестовыми данными)
+
+### Требования
+- Docker (установлен и запущен)
+
+### Пошаговая инструкция
+1. Клонируйте репозиторий:
+```bash
+git clone https://github.com/AndreyS27/ContactWebApp.git
+cd ContactWebApp/Api
+```
+2. Запустите приложение:
+```bash
+docker-compose up --build
+```
+3. После запуска:
+- API будет доступен по адресу: http://localhost:5000
+- Документация Swagger: http://localhost:5000/swagger
+- База данных автоматически инициализируется из **init.sql**
+
+!!! При первом запуске может занять 1–2 минуты (сборка образа + инициализация БД).
