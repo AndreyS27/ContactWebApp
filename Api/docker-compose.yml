@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:17
+    container_name: contacts_db_container
+    environment:
+      POSTGRES_DB: contacts_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: contacts_api_container
+    ports:
+      - "5000:5000"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=contacts_db;Username=postgres;Password=qwerty
+      - ASPNETCORE_URLS=http://+:5000
+    depends_on:
+      - db
+    # - client=http://localhost:3000
+
+volumes:
+  postgres_data:
